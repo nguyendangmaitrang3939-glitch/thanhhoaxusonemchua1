@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Xứ Thanh | Tinh hoa ẩm thực & văn hóa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FFFBF5;
+            color: #2C2A29;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo, .nav-links a {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 600;
+            color: #FFF;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #C2412C, #6B8C42);
+            border-radius: 2px;
+        }
+        .center h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Navbar độc đáo */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: 0.4s;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 251, 245, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #FFF;
+            letter-spacing: 2px;
+        }
+        .navbar.scrolled .logo {
+            color: #C2412C;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #FFF;
+            transition: 0.2s;
+        }
+        .navbar.scrolled .nav-links a {
+            color: #2C2A29;
+        }
+        .nav-links a:hover {
+            color: #C2412C;
+        }
+
+        /* Hero độc đáo với overlay gradient đặc biệt */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(194,65,44,0.3), rgba(107,140,66,0.2)), url('https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-2.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #FFE8C5;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 44px;
+            border: 1.5px solid #FFE8C5;
+            color: #FFE8C5;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            background: transparent;
+            margin-top: 2rem;
+        }
+        .btn:hover {
+            background: #C2412C;
+            border-color: #C2412C;
+            color: white;
+        }
+
+        .section {
+            padding: 90px 0;
+        }
+        .section.alt {
+            background: #F6F0E8;
+        }
+        .center {
+            text-align: center;
+        }
+
+        /* Layout giới thiệu mới */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .intro-text p {
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+            color: #3E3A37;
+        }
+        .intro-img {
+            border-radius: 24px;
+            overflow: hidden;
+            height: 420px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+        }
+        .intro-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Đặc sản - card ngang độc đáo */
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-top: 50px;
+        }
+        .special-card {
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            border-radius: 28px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            transition: 0.25s;
+        }
+        .special-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -12px rgba(194,65,44,0.15);
+        }
+        .special-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #C2412C, #6B8C42);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .special-icon i {
+            font-size: 2.2rem;
+            color: white;
+        }
+        .special-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: #C2412C;
+        }
+        .special-info p {
+            color: #5a5a5a;
+        }
+
+        /* Điểm đến - style mới */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .dest-item {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .dest-item:hover {
+            transform: translateY(-8px);
+        }
+        .dest-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+        .dest-item h3 {
+            font-size: 1.4rem;
+            margin: 20px 20px 8px;
+        }
+        .dest-item p {
+            margin: 0 20px 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .dest-tag {
+            display: inline-block;
+            margin: 0 20px 20px;
+            padding: 5px 15px;
+            background: #C2412C10;
+            color: #C2412C;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Gallery lưới sáng tạo */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 45px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 20px;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Info */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 55px;
+        }
+        .info-item {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 28px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+        .info-item i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #C2412C, #6B8C42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+        .info-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: linear-gradient(120deg, #C2412C, #6B8C42);
+            padding: 45px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 0 24px;
+            }
+            .intro-grid, .specialties-grid {
+                grid-template-columns: 1fr;
+            }
+            .destinations-grid, .gallery-grid, .info-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .special-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        @media (max-width: 600px) {
+            .destinations-grid, .gallery-grid, .info-cards {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+    <div class="nav-container">
+        <div class="logo">XỨ THANH</div>
+        <div class="nav-links">
+            <a href="#about">Giới thiệu</a>
+            <a href="#specialties">Đặc sản</a>
+            <a href="#destinations">Điểm đến</a>
+            <a href="#gallery">Thư viện</a>
+            <a href="#travel">Cẩm nang</a>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="subtitle">TINH HOA ĐẤT VIỆT</p>
+        <h1>Thanh Hóa</h1>
+        <p style="color: #FFE8C5; margin-top: 1rem; font-size: 1.1rem;">Nem chua đỏ au – Rau má xanh mướt – Di sản ngàn năm</p>
+        <a href="#about" class="btn">KHÁM PHÁ NGAY</a>
+    </div>
+</section>
+
+<section id="about" class="section">
+    <div class="container">
+        <div class="intro-grid">
+            <div class="intro-text">
+                <h2>Xứ Thanh – Miền đất cố đô</h2>
+                <p>Thanh Hóa – vùng đất “địa linh nhân kiệt”, nơi lưu giữ những giá trị văn hóa và lịch sử hàng đầu Việt Nam. Từ kinh đô Tây Đô của nhà Hồ đến những bãi biển dài cát trắng, xứ Thanh luôn là điểm đến đầy mê hoặc.</p>
+                <p>Không chỉ có cảnh quan thiên nhiên hùng vĩ, Thanh Hóa còn là thiên đường ẩm thực với những món đặc sản mang hương vị khó quên: nem chua đỏ au, rau má tươi mát, chả cá nhảy, bánh gai Tứ Trụ… Mỗi món ăn đều kết tinh từ tâm hồn người dân xứ Thanh.</p>
+                <p style="font-style: italic; border-left: 3px solid #C2412C; padding-left: 18px;">“Thanh Hóa – nơi lịch sử và thiên nhiên giao hòa, ẩm thực và văn hóa kết tinh.”</p>
+            </div>
+            <div class="intro-img">
+                <img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-3.jpg" alt="Thanh Hóa quê hương">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="specialties" class="section alt">
+    <div class="container">
+        <div class="center">
+            <h2>Đặc sản trứ danh</h2>
+            <p style="margin-top: 12px;">Hương vị đặc trưng – Màu nem chua đỏ, sắc rau má xanh</p>
+        </div>
+        <div class="specialties-grid">
+            <div class="special-card">
+                <div class="special-icon"><i class="fas fa-drumstick-bite"></i></div>
+                <div class="special-info">
+                    <h3>Nem chua Thanh Hóa</h3>
+                    <p>Màu đỏ au đặc trưng, vị chua thanh, thơm nồng tỏi ớt và lá ổi. Món quà biếu không thể thiếu khi đến xứ Thanh.</p>
+                </div>
+            </div>
+            <div class="special-card">
+                <div class="special-icon"><i class="fas fa-leaf"></i></div>
+                <div class="special-info">
+                    <h3>Rau má Thanh Hóa</h3>
+                    <p>Rau má tươi mát, xanh mướt, thường dùng kèm nem chua tạo nên sự cân bằng hoàn hảo về hương vị.</p>
+                </div>
+            </div>
+            <div class="special-card">
+                <div class="special-icon"><i class="fas fa-fish"></i></div>
+                <div class="special-info">
+                    <h3>Chả cá nhảy</h3>
+                    <p>Đặc sản nức tiếng với những lát chả cá dai ngon, từ cá tươi sống đánh bắt tại vùng biển Sầm Sơn.</p>
+                </div>
+            </div>
+            <div class="special-card">
+                <div class="special-icon"><i class="fas fa-bread-slice"></i></div>
+                <div class="special-info">
+                    <h3>Bánh gai Tứ Trụ</h3>
+                    <p>Món bánh truyền thống dẻo thơm, nhân đậu xanh, dừa, tạo nên hương vị đậm đà khó quên.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="destinations" class="section">
+    <div class="container">
+        <div class="center">
+            <h2>Điểm đến nổi bật</h2>
+            <p style="margin-top: 12px;">Di sản văn hóa – Thiên nhiên kỳ vĩ – Biển xanh cát trắng</p>
+        </div>
+        <div class="destinations-grid">
+            <div class="dest-item">
+                <img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-7.jpg" alt="Thành nhà Hồ">
+                <h3>Thành nhà Hồ</h3>
+                <p>Di sản văn hóa thế giới UNESCO, công trình kiến trúc đá độc đáo từ thế kỷ 14.</p>
+                <span class="dest-tag">Di sản UNESCO</span>
+            </div>
+            <div class="dest-item">
+                <img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-6.jpg" alt="Sầm Sơn">
+                <h3>Biển Sầm Sơn</h3>
+                <p>Bãi biển đẹp bậc nhất Bắc Trung Bộ, nước trong xanh, cát trắng mịn.</p>
+                <span class="dest-tag">Biển đẹp</span>
+            </div>
+            <div class="dest-item">
+                <img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-4.jpg" alt="Pù Luông">
+                <h3>Khu bảo tồn Pù Luông</h3>
+                <p>Thung lũng xanh mướt với ruộng bậc thang, văn hóa dân tộc Thái đặc sắc.</p>
+                <span class="dest-tag">Trekking</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="section alt">
+    <div class="container">
+        <div class="center">
+            <h2>Thư viện hình ảnh</h2>
+            <p style="margin-top: 12px;">Khoảnh khắc đẹp của xứ Thanh qua ống kính</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://t3.ftcdn.net/jpg/07/68/05/62/240_F_768056284_5rcK6aUFmRt0rO370IUFdCWbV1F3O91O.jpg" alt="Thanh Hóa đẹp"></div>
+            <div class="gallery-item"><img src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2024_1_9_638404130081431753_cach-lam-nem-chua-thumb.jpg" alt="Nem chua Thanh Hóa"></div>
+            <div class="gallery-item"><img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-2.jpg" alt="Cảnh đẹp Thanh Hóa"></div>
+            <div class="gallery-item"><img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-3.jpg" alt="Thanh Hóa quê hương"></div>
+            <div class="gallery-item"><img src="data:image/jpeg;base64,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" alt="Nem chua Thanh Hóa"></div>
+            <div class="gallery-item"><img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_MH/%E1%BA%A3nh%20%C4%91%E1%BA%B9p%20Thanh%20H%C3%B3a/anh-dep-thanh-hoa-7.jpg" alt="Thành nhà Hồ"></div>
+        </div>
+    </div>
+</section>
+
+<section id="travel" class="section">
+    <div class="container">
+        <div class="center">
+            <h2>Thông tin du lịch</h2>
+            <p>Cẩm nang hữu ích cho hành trình khám phá xứ Thanh</p>
+        </div>
+        <div class="info-cards">
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Vị trí</h3>
+                <p>Thanh Hóa, cách Hà Nội 150km<br>Nằm ở trung tâm Bắc Bộ</p>
+            </div>
+            <div class="info-item">
+                <i class="far fa-calendar-alt"></i>
+                <h3>Thời điểm đẹp</h3>
+                <p>Tháng 4 - 8 (biển đẹp)<br>Tháng 9 - 11 (mùa vàng ruộng bậc thang)</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-utensils"></i>
+                <h3>Đặc sản nên thử</h3>
+                <p>Nem chua, chả cá, bánh gai, rau má, chè lam Phủ Quảng</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-leaf"></i>
+                <h3>Du lịch có trách nhiệm</h3>
+                <p>Giữ gìn vệ sinh, bảo vệ di tích, tôn trọng văn hóa địa phương</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">© 2026 XỨ THANH | TINH HOA ĐẤT VIỆT</p>
+    <p style="margin-top: 10px;">Màu sắc: Đỏ nem chua - Xanh rau má, hương vị đặc trưng của xứ Thanh</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 20) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    });
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const allImages = document.querySelectorAll('.gallery-item img, .dest-item img, .intro-img img');
+    
+    allImages.forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            lightbox.classList.add('active');
+            lightboxImg.src = this.src;
+        });
+    });
+    
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+            lightbox.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>
